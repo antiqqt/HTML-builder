@@ -2,7 +2,7 @@ const { createWriteStream, createReadStream } = require('fs');
 const { readdir } = require('fs/promises');
 const path = require('path');
 
-(async () => {
+async function bundleStyles() {
   try {
     const bundleWriteStream = createWriteStream(
       path.join(__dirname, 'project-dist', 'bundle.css')
@@ -24,4 +24,6 @@ const path = require('path');
   } catch (err) {
     console.log(err);
   }
-})();
+}
+
+bundleStyles();
