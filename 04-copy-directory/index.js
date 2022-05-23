@@ -4,7 +4,7 @@ const path = require('path');
 async function copyFolder(
   pathToSrcFolder,
   pathToDestFolder,
-  options = { recursive: false, destFolderCleared: false }
+  options = { deepCopy: false, destFolderCleared: false }
 ) {
   try {
     if (!options.destFolderCleared) {
@@ -25,11 +25,11 @@ async function copyFolder(
         copyFile(pathToSrcFile, pathToDestFile);
       }
 
-      if (dirent.isDirectory() && options.recursive) {
+      if (dirent.isDirectory() && options.deepCopy) {
         copyFolder(
           path.join(pathToSrcFolder, dirent.name),
           path.join(pathToDestFolder, dirent.name),
-          { recursive: true, destFolderCleared: true }
+          { deepCopy: true, destFolderCleared: true }
         );
       }
     }
@@ -39,5 +39,5 @@ async function copyFolder(
 }
 
 copyFolder(path.join(__dirname, 'files'), path.join(__dirname, 'files-copy'), {
-  recursive: true,
+  deepCopy: true,
 });
